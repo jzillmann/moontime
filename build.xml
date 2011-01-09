@@ -1,0 +1,40 @@
+<project name="moontime">
+	<property name="root.dir" value="${basedir}" />
+	<property file="${root.dir}/build.properties" />
+	<import file="${root.dir}/build.macro.xml" />
+
+	<!-- ================================================================== -->
+	<!-- Build sources                                                      -->
+	<!-- ================================================================== -->
+
+	<target name="check-header" >
+		<exec command="sh src/build/checkHeaders.sh ${basedir}" failonerror="true"/>
+	</target>
+
+	<target name="compile" depends="check-header">
+        <mkdir dir="${build.dir.main-classes}" />
+        <javac encoding="${build.encoding}" includes="**/*.java" destdir="${build.dir.main-classes}" debug="${javac.debug}" optimize="${javac.optimize}" target="${javac.version}" source="${javac.version}" deprecation="${javac.deprecation}">
+            <src path="${main.src.dir}" />
+            <compilerarg line="${javac.args} ${javac.args.warnings}" />
+            <classpath refid="compile.classpath" />
+            <classpath refid="artifact.classpath" />
+        </javac>
+        <copy todir="${build.dir.main-classes}">
+            <fileset dir="${main.res.dir}"/>
+        </copy>
+    </target>
+
+	<target name="compile-unit" depends="">
+        <compileTests artifactclasspath="artifact.test.classpath" srcdir="${test.src.dir}" resdir="${test.res.dir}" testclasses="${build.dir.test-classes}" />
+    </target>
+
+    <target name="jar" depends="compile">
+        <buildJar jarname="${jar.name}" mainclasses="${build.dir.main-classes}" />
+    </target>
+
+	<target name="test" depends="compile-unit">
+        <runTests srcdir="${test.src.dir}" forkmode="once" testclasses="${build.dir.test-classes}" testreports="${build.dir.test-reports}" artifactclasspath="artifact.test.classpath" haltOnFailure="true"/>
+    </target>
+
+
+</project>
