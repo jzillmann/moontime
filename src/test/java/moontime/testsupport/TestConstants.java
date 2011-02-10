@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package moontime;
+package moontime.testsupport;
 
-public class Main {
+public interface TestConstants {
 
+    public static double LEIPZIG_LATITUDE = 51.36d;
+    public static double LEIPZIG_LONGITUDE = 12.38d;
 }

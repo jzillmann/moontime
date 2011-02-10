@@ -24,7 +24,7 @@
         </copy>
     </target>
 
-	<target name="compile-unit" depends="">
+	<target name="compile-unit" depends="compile">
         <compileTests artifactclasspath="artifact.test.classpath" srcdir="${test.src.dir}" resdir="${test.res.dir}" testclasses="${build.dir.test-classes}" />
     </target>
 

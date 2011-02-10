@@ -86,13 +86,14 @@
             <echo>Building jar ${artifact.dir}/${jar.name}</echo>
             <jar jarfile="${artifact.dir}/@{jarName}" basedir="@{mainClasses}">
                 <manifest>
-                    <section name="dap">
+                    <section name="moontime">
                         <attribute name="Implementation-Title" value="${ant.project.name}" />
                         <attribute name="Implementation-Version" value="${version}" />
                         <attribute name="Raw-Version" value="${version.raw}" />
                         <attribute name="Compile-Time" value="${timestamp}" />
                         <attribute name="Compiled-By" value="${user.name}" />
                         <attribute name="Git-Revision" value="${build.current.revision}" />
+                    	<attribute name="License" value="Apache 2.0" />
                     </section>
                 </manifest>
             </jar>
@@ -112,7 +113,7 @@
             <mkdir dir="@{testReports}" />
             <echo>Using test classes @{testClasses}</echo>
             <junit showoutput="false" printsummary="yes" haltonfailure="@{haltOnFailure}" haltonerror="@{haltOnFailure}" forkmode="@{forkmode}" fork="yes" maxmemory="256m" dir="${basedir}" errorProperty="tests.failed" failureProperty="tests.failed" >
-                <sysproperty key="net.sourceforge.cobertura.datafile" file="${reports.dir}/dap.ser" />
+                <sysproperty key="net.sourceforge.cobertura.datafile" file="${reports.dir}/project.ser" />
             	<sysproperty key="java.awt.headless" value="true" />
             	<sysproperty key="file.encoding" value="${file.encoding}" />
             	<classpath>

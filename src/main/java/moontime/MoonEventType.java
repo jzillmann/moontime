@@ -15,14 +15,24 @@
  */
 package moontime;
 
-import static org.fest.assertions.Assertions.*;
+/**
+ * A {@link MoonPhase} but with a single date assignable.
+ */
+public enum MoonEventType {
 
-import org.junit.Test;
+    NEW_MOON(0.0d), FIRST_QUARTER(0.25d), FULL_MOON(0.5d), LAST_QUARTER(0.75d);
 
-public class MainTest {
+    private final double _fraction;
 
-    @Test
-    public void testIt() throws Exception {
-        assertThat(true).isTrue();
+    private MoonEventType(double fraction) {
+        _fraction = fraction;
     }
+
+    /**
+     * @return value between 0..1
+     */
+    public double getFraction() {
+        return _fraction;
+    }
+
 }
