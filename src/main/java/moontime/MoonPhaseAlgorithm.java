@@ -15,7 +15,7 @@
  */
 package moontime;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -24,9 +24,9 @@ import java.util.List;
  */
 public interface MoonPhaseAlgorithm {
 
-    public Moon calculate(Date date);
+    public Moon calculate(Calendar date);
 
-    public List<MoonEvent> getNextMoonEvents(Date upFromDate, int count, EnumSet<MoonEventType> includedTypes);
+    public List<MoonEvent> getNextMoonEvents(Calendar upFromDate, int count, EnumSet<MoonEventType> includedTypes);
 
     // public double calculateAge(Date date);
 

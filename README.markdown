@@ -12,6 +12,12 @@ FEATURES
 + calculation of next n moon-events (NEW_MOON, FIRST_QUARTER, FULL_MOON, LAST_QUARTER) for a given date
 
 
+USAGE
+=====
+
+!TODO!
+
+
 BUILDING MOONTIME
 =====
 + setup in eclipse

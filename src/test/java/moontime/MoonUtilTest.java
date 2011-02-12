@@ -13,14 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package moontime.alg;
+package moontime;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-public class MoonToolPhaseAlgorithmTest extends AbstractMoonPhaseAlgorithmTest {
+import moontime.testsupport.AbstractTest;
 
-    public MoonToolPhaseAlgorithmTest() {
-        super(new MoonToolPhaseAlgorithm(), 0.1, 0.005, TimeUnit.SECONDS.toMillis(40));
+import org.junit.Test;
+
+public class MoonUtilTest extends AbstractTest {
+
+    @Test
+    public void testConvertTime() throws Exception {
+        Calendar calendar = Calendar.getInstance();
+        System.out.println(MoonUtil.toJulian(calendar));
+        System.out.println(calendar.getTime());
+        System.out.println(MoonUtil.toGregorian(MoonUtil.toJulian(calendar)).getTime());
+        assertDate(MoonUtil.toGregorian(MoonUtil.toJulian(calendar)).getTime(), calendar.getTime(), TimeUnit.MINUTES.toMillis(1));
     }
 
 }

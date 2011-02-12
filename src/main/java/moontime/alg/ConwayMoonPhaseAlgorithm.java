@@ -17,7 +17,6 @@ package moontime.alg;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -37,26 +36,23 @@ import moontime.MoonPhaseAlgorithm;
 public class ConwayMoonPhaseAlgorithm implements MoonPhaseAlgorithm, Constants {
 
     @Override
-    public Moon calculate(Date date) {
-        double moonAge = calculateFraction(date.getYear() + 1900, date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds());
+    public Moon calculate(Calendar calendar) {
+        double moonAge = calculateAge(calendar);
         return new Moon(moonAge, moonAge / SYNODIC_MONTH);
     }
 
     @Override
-    public List<MoonEvent> getNextMoonEvents(Date upFromDate, int count, EnumSet<MoonEventType> includedTypes) {
+    public List<MoonEvent> getNextMoonEvents(Calendar calender, int count, EnumSet<MoonEventType> includedTypes) {
         List<MoonEvent> moonEventsData = new ArrayList<MoonEvent>();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(upFromDate);
-
         int countedEvents = 0;
-        double moonAge = calculate(calendar.getTime()).getMoonAge();
+        double moonAge = calculate(calender).getMoonAge();
         MoonPhase currentPhase = MoonPhase.getMoonPhaseByAge(moonAge);
         while (countedEvents < count) {
-            calendar.add(Calendar.MINUTE, 1);
-            moonAge = calculate(calendar.getTime()).getMoonAge();
+            calender.add(Calendar.HOUR_OF_DAY, 1);
+            moonAge = calculate(calender).getMoonAge();
             if (MoonPhase.getMoonPhaseByAge(moonAge) != currentPhase) {
                 if (includedTypes.contains(currentPhase.getCulminatingEventType())) {
-                    moonEventsData.add(new MoonEvent(currentPhase.getCulminatingEventType(), calendar.getTime()));
+                    moonEventsData.add(new MoonEvent(currentPhase.getCulminatingEventType(), calender.getTime()));
                     countedEvents++;
                 }
                 currentPhase = MoonPhase.getMoonPhaseByAge(moonAge);
@@ -65,8 +61,15 @@ public class ConwayMoonPhaseAlgorithm implements MoonPhaseAlgorithm, Constants {
         return moonEventsData;
     }
 
-    public double calculateFraction(int year, int month, int day, int hours, int minutes, int seconds) {
+    public double calculateAge(Calendar cal) {
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH) + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
         // TODO how to get hours, minutes, seconds into this algorithm ?
+        // int hours = cal.get(Calendar.HOUR_OF_DAY);
+        // int minutes = cal.get(Calendar.MINUTE);
+        // int seconds = cal.get(Calendar.SECOND);
         double result = year % 100;
         result %= 19;
         if (result > 9) {

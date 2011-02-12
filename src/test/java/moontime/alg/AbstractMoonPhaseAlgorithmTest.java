@@ -18,15 +18,18 @@ package moontime.alg;
 import static org.fest.assertions.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.TimeZone;
 
 import moontime.Constants;
 import moontime.Moon;
 import moontime.MoonEvent;
 import moontime.MoonEventType;
 import moontime.MoonPhaseAlgorithm;
+import moontime.MoonUtil;
 import moontime.testsupport.AbstractTest;
 
 import org.fest.assertions.Delta;
@@ -38,26 +41,28 @@ public abstract class AbstractMoonPhaseAlgorithmTest extends AbstractTest {
     private final double _moonAgeDelta;
     private final double _moonFractionDelta;
     private final long _moonEventDeviationDelta;
-    private final MoonPhaseAlgorithm _algorithm;
+    protected final MoonPhaseAlgorithm _algorithm;
+    private final Calendar _calendar15Jan2011 = Calendar.getInstance();
 
     public AbstractMoonPhaseAlgorithmTest(MoonPhaseAlgorithm algorithm, double moonAgeDelta, double moonFractionDelta, long moonEventDeviationDelta) {
         _algorithm = algorithm;
         _moonAgeDelta = moonAgeDelta;
         _moonFractionDelta = moonFractionDelta;
         _moonEventDeviationDelta = moonEventDeviationDelta;
+        _calendar15Jan2011.setTime(new Date(1295129899864L));
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void testCalculateNexMoonEvents() {
-        List<MoonEvent> events = _algorithm.getNextMoonEvents(new Date(1295129899864L), 5, EnumSet.of(MoonEventType.NEW_MOON, MoonEventType.FULL_MOON));
+        List<MoonEvent> events = _algorithm.getNextMoonEvents(_calendar15Jan2011, 5, EnumSet.of(MoonEventType.NEW_MOON, MoonEventType.FULL_MOON));
         assertThat(events).hasSize(5);
         List<MoonEvent> expectedEvents = new ArrayList<MoonEvent>();
-        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, new Date(2011 - 1900, 0, 19, 21, 21)));
-        expectedEvents.add(new MoonEvent(MoonEventType.NEW_MOON, new Date(2011 - 1900, 1, 3, 2, 31)));
-        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, new Date(2011 - 1900, 1, 18, 8, 36)));
-        expectedEvents.add(new MoonEvent(MoonEventType.NEW_MOON, new Date(2011 - 1900, 2, 4, 20, 46)));
-        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, new Date(2011 - 1900, 2, 19, 18, 10)));
+        TimeZone UTC = TimeZone.getTimeZone("UTC");
+        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, MoonUtil.newCalender(2011, 0, 19, 21, 21, 0, UTC).getTime()));
+        expectedEvents.add(new MoonEvent(MoonEventType.NEW_MOON, MoonUtil.newCalender(2011, 1, 3, 2, 31, 0, UTC).getTime()));
+        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, MoonUtil.newCalender(2011, 1, 18, 8, 36, 0, UTC).getTime()));
+        expectedEvents.add(new MoonEvent(MoonEventType.NEW_MOON, MoonUtil.newCalender(2011, 2, 4, 20, 46, 0, UTC).getTime()));
+        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, MoonUtil.newCalender(2011, 2, 19, 18, 10, 0, UTC).getTime()));
         for (int i = 0; i < events.size(); i++) {
             printEvent(events.get(i), expectedEvents.get(i).getDate());
             assertThat(events.get(i).getType()).isEqualTo(expectedEvents.get(i).getType());
@@ -68,9 +73,9 @@ public abstract class AbstractMoonPhaseAlgorithmTest extends AbstractTest {
 
     @Test
     public void testCalculateMoon() throws Exception {
-        List<MoonEvent> events = _algorithm.getNextMoonEvents(new Date(1295129899864L), MoonEventType.values().length, EnumSet.allOf(MoonEventType.class));
+        List<MoonEvent> events = _algorithm.getNextMoonEvents(_calendar15Jan2011, MoonEventType.values().length, EnumSet.allOf(MoonEventType.class));
         for (MoonEvent moonEvent : events) {
-            Moon moon = _algorithm.calculate(moonEvent.getDate());
+            Moon moon = _algorithm.calculate(MoonUtil.newCalender(moonEvent.getDate()));
             System.out.println(moonEvent.getType() + ": " + moon);
             double expectedAge = Constants.SYNODIC_MONTH * moonEvent.getType().getFraction();
             double expectedFraction = moonEvent.getType().getFraction();

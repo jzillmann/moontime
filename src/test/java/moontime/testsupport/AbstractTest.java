@@ -40,7 +40,8 @@ public class AbstractTest {
     }
 
     public void assertDate(Date date1, Date date2, long allowedDeviationInMs) {
-        assertThat(date1.getTime(), almostEquals(date2.getTime(), allowedDeviationInMs, "expected " + date1.toString() + " with deviation of " + allowedDeviationInMs + " ms but was " + date2));
+        assertThat(date1.getTime(),
+                almostEquals(date2.getTime(), allowedDeviationInMs, "expected '" + date1.toString() + "' with deviation of " + allowedDeviationInMs + " ms but was '" + date2 + "'"));
     }
 
     protected Matcher<Long> almostEquals(final long value1, final long aberration, final String descriptionText) {

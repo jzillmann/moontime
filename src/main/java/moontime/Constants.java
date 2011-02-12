@@ -24,8 +24,11 @@ public interface Constants {
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     /** Eccentricity of Earth's orbit */
     double ECCENTRICITY = 0.016718d;
-    /** 1980 January 0.0 */
+    /** 1980 January */
     double EPOCH = 2444238.5d;
+    /** January 1, 1970 at 00:00:00 UTC */
+    double JULIAN_1_1_1970 = 2440587.5d;
+    double SECONDS_PER_DAY = 86400.0d;
 
     //
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
