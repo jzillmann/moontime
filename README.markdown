@@ -2,9 +2,9 @@ ABOUT - version 0.1.dev
 =====
 A library to calculate moon-phases, sun-rise and things like that!
 
-+ for details see [moontime webpage](https://github.com/jzillmann/moontime)
 + API is still considered experimental and unstable
 + Apache 2.0 License
++ for details see [moontime webpage](https://github.com/jzillmann/moontime)
 
 
 FEATURES
@@ -22,7 +22,6 @@ USAGE
 BUILDING MOONTIME
 =====
 + setup in eclipse
-
     ant eclipse
 + run the test
 
