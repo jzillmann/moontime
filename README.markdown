@@ -22,13 +22,9 @@ USAGE
 BUILDING MOONTIME
 =====
 + setup in eclipse
-
-    ant eclipse
-
+	    ant eclipse
 + run the test
-
-    ant test
-
+    	ant test
 + build the jar
     	ant jar
 
