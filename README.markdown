@@ -22,13 +22,15 @@ USAGE
 BUILDING MOONTIME
 =====
 + setup in eclipse
+
     ant eclipse
+
 + run the test
 
     ant test
-+ build the jar
 
-    ant jar
++ build the jar
+    	ant jar
 
 
 THANKS
