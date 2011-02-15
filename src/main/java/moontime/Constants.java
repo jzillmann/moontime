@@ -15,7 +15,6 @@
  */
 package moontime;
 
-import java.util.concurrent.TimeUnit;
 
 public interface Constants {
 
@@ -48,6 +47,6 @@ public interface Constants {
     /** Mean longitude of the perigee at the epoch */
     double MOONS_MEAN_LONGITUDE_AT_EPOCH_AT_PERIGREE = 349.383063d;
     /** (new Moon to new Moon) in days */
-    public static double SYNODIC_MONTH = (double) (TimeUnit.DAYS.toMillis(29) + TimeUnit.HOURS.toMillis(12) + TimeUnit.MINUTES.toMillis(44) + 2800) / 1000 / 60 / 60 / 24;
+    public static double SYNODIC_MONTH = 29.530587962962958d;
 
 }
