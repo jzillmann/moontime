@@ -40,4 +40,22 @@ public class MoonEvent {
         return getType() + ": " + getDate();
     }
 
+    public static enum EventAllocation {
+        IN_FUTURE, IN_PRESENT, IN_PAST;
+
+        public static EventAllocation getEventAllocation(long now, long eventTime, long eventPhaseMinus, long eventPhasePlus) {
+            long presentMin = eventTime - eventPhaseMinus;
+            long presentMax = eventTime + eventPhasePlus;
+            if (now < presentMin) {
+                return IN_FUTURE;
+            }
+            if (now >= presentMin) {
+                if (now <= presentMax) {
+                    return IN_PRESENT;
+                }
+            }
+            return IN_PAST;
+        }
+    }
+
 }

@@ -35,4 +35,26 @@ public enum MoonEventType {
         return _fraction;
     }
 
+    public String getDisplayName() {
+        char[] chars = name().toCharArray();
+        StringBuilder displayName = new StringBuilder(chars.length);
+        boolean initial = true;
+        for (char c : chars) {
+            if (initial) {
+                initial = false;
+                displayName.append(c);
+            } else {
+                if (c == '_') {
+                    initial = true;
+                    displayName.append(' ');
+                } else {
+                    displayName.append(Character.toLowerCase(c));
+                }
+            }
+        }
+
+        return displayName.toString();
+
+    }
+
 }
