@@ -20,7 +20,30 @@ package moontime;
  */
 public enum MoonEventType {
 
-    NEW_MOON(0.0d), FIRST_QUARTER(0.25d), FULL_MOON(0.5d), LAST_QUARTER(0.75d);
+    NEW_MOON(0.0d) {
+        @Override
+        public MoonEventType opposite() {
+            return FULL_MOON;
+        }
+    },
+    FIRST_QUARTER(0.25d) {
+        @Override
+        public MoonEventType opposite() {
+            return LAST_QUARTER;
+        }
+    },
+    FULL_MOON(0.5d) {
+        @Override
+        public MoonEventType opposite() {
+            return NEW_MOON;
+        }
+    },
+    LAST_QUARTER(0.75d) {
+        @Override
+        public MoonEventType opposite() {
+            return FIRST_QUARTER;
+        }
+    };
 
     private final double _fraction;
 
@@ -54,7 +77,8 @@ public enum MoonEventType {
         }
 
         return displayName.toString();
-
     }
+
+    public abstract MoonEventType opposite();
 
 }
