@@ -21,24 +21,35 @@ import java.util.TimeZone;
 
 public class MoonUtil implements Constants {
 
-    public static Calendar newCalender(Date date) {
-        return newCalender(date.getTime());
+    public static Calendar newCalendar(Date date) {
+        return newCalendar(date.getTime());
     }
 
-    public static Calendar newCalender(long timeInMillis) {
+    public static Calendar newCalendar(long timeInMillis) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timeInMillis);
         return calendar;
     }
 
-    public static Calendar newCalender(int year, int month, int day, int hour, int minutes, int seconds, TimeZone timeZone) {
+    public static Calendar newCalendar(int year, int month, int day, int hour, int minutes, int seconds, TimeZone timeZone) {
         Calendar calendar = Calendar.getInstance(timeZone);
         calendar.set(year, month, day, hour, minutes, seconds);
         return calendar;
     }
 
+    public static Calendar newCalendar(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day, 0, 0, 0);
+        return calendar;
+    }
+
     public static double toJulian(Calendar calendar) {
         return toJulianFromUnixTimestamp(calendar.getTimeInMillis() / 1000);
+    }
+
+    public static double toModifiedJulian(Calendar calendar) {
+        return toJulian(calendar) - 2400000.5d;
+
     }
 
     public static double toJulianFromUnixTimestamp(long unixSecs) {
@@ -50,7 +61,7 @@ public class MoonUtil implements Constants {
     }
 
     public static Calendar toGregorian(double julianDate) {
-        return newCalender(toUnixTimestampFromJulian(julianDate) * 1000);
+        return newCalendar(toUnixTimestampFromJulian(julianDate) * 1000);
     }
 
     public static Date toGregorianDate(double julianDate) {
@@ -74,5 +85,13 @@ public class MoonUtil implements Constants {
             e -= delta / (1 - ecc * Math.cos(e));
         } while (Math.abs(delta) > EPSILON);
         return e;
+    }
+
+    public static double fixAngleDegrees(double deg) {
+        double fixed = deg % 360d;
+        if (fixed < 0) {
+            fixed += 360d;
+        }
+        return fixed;
     }
 }

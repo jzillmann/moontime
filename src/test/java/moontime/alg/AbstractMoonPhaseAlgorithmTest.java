@@ -58,11 +58,11 @@ public abstract class AbstractMoonPhaseAlgorithmTest extends AbstractTest {
         assertThat(events).hasSize(5);
         List<MoonEvent> expectedEvents = new ArrayList<MoonEvent>();
         TimeZone UTC = TimeZone.getTimeZone("UTC");
-        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, MoonUtil.newCalender(2011, 0, 19, 21, 21, 0, UTC).getTime()));
-        expectedEvents.add(new MoonEvent(MoonEventType.NEW_MOON, MoonUtil.newCalender(2011, 1, 3, 2, 31, 0, UTC).getTime()));
-        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, MoonUtil.newCalender(2011, 1, 18, 8, 36, 0, UTC).getTime()));
-        expectedEvents.add(new MoonEvent(MoonEventType.NEW_MOON, MoonUtil.newCalender(2011, 2, 4, 20, 46, 0, UTC).getTime()));
-        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, MoonUtil.newCalender(2011, 2, 19, 18, 10, 0, UTC).getTime()));
+        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, MoonUtil.newCalendar(2011, 0, 19, 21, 21, 0, UTC).getTime()));
+        expectedEvents.add(new MoonEvent(MoonEventType.NEW_MOON, MoonUtil.newCalendar(2011, 1, 3, 2, 31, 0, UTC).getTime()));
+        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, MoonUtil.newCalendar(2011, 1, 18, 8, 36, 0, UTC).getTime()));
+        expectedEvents.add(new MoonEvent(MoonEventType.NEW_MOON, MoonUtil.newCalendar(2011, 2, 4, 20, 46, 0, UTC).getTime()));
+        expectedEvents.add(new MoonEvent(MoonEventType.FULL_MOON, MoonUtil.newCalendar(2011, 2, 19, 18, 10, 0, UTC).getTime()));
         for (int i = 0; i < events.size(); i++) {
             printEvent(events.get(i), expectedEvents.get(i).getDate());
             assertThat(events.get(i).getType()).isEqualTo(expectedEvents.get(i).getType());
@@ -75,7 +75,7 @@ public abstract class AbstractMoonPhaseAlgorithmTest extends AbstractTest {
     public void testCalculateMoon() throws Exception {
         List<MoonEvent> events = _algorithm.getNextMoonEvents(_calendar15Jan2011, MoonEventType.values().length, EnumSet.allOf(MoonEventType.class));
         for (MoonEvent moonEvent : events) {
-            Moon moon = _algorithm.calculate(MoonUtil.newCalender(moonEvent.getDate()));
+            Moon moon = _algorithm.calculate(MoonUtil.newCalendar(moonEvent.getDate()));
             System.out.println(moonEvent.getType() + ": " + moon);
             double expectedAge = Constants.SYNODIC_MONTH * moonEvent.getType().getFraction();
             double expectedFraction = moonEvent.getType().getFraction();

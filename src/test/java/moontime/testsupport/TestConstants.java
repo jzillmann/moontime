@@ -19,4 +19,7 @@ public interface TestConstants {
 
     public static double LEIPZIG_LATITUDE = 51.36d;
     public static double LEIPZIG_LONGITUDE = 12.38d;
+
+    public static double KONGSFJORDEN_LATITUDE = 78.9651307d;
+    public static double KONGSFJORDEN_LONGITUDE = 11.8569355d;
 }
