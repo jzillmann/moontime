@@ -29,7 +29,6 @@ import moontime.rise.SunTimesCalculator;
 import moontime.testsupport.TestConstants;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 public class ShowCase {

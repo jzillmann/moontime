@@ -33,6 +33,7 @@ public class AbstractTest {
     public PrintTestNameRule _printPrintTestNameRule = new PrintTestNameRule();
 
     static class PrintTestNameRule implements MethodRule {
+        @Override
         public Statement apply(Statement base, FrameworkMethod method, Object target) {
             System.out.println("~~~~~~~~~~~~~~~ " + target.getClass().getName() + "#" + method.getName() + "() ~~~~~~~~~~~~~~~");
             return base;
