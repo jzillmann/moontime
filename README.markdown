@@ -16,7 +16,7 @@ FEATURES
 USAGE
 =====
 
-!TODO!
+See [ShowCase](https://raw.github.com/jzillmann/moontime/master/src/test/java/moontime/examples/ShowCase.java)
 
 
 BUILDING MOONTIME
